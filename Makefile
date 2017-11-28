@@ -18,7 +18,8 @@ LDLIBS += $(shell freetype-config --libs) $(LDLIBS)
 LDLIBS += $(shell sdl2-config --libs) $(LDLIBS)
 
 EXAMPLES= tutorial01 \
-
+          tutorial02 \
+ 
 OBJS=$(addsuffix .o,$(EXAMPLES))
 
 .phony: all clean
