@@ -12,7 +12,11 @@
 *.a
 tutorial01
 tutorial02
+tutorial03
 *.ppm
 
 # test movies
 *.mp4
+
+# emacs backup file
+*.c~
