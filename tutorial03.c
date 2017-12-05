@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <unistd.h>
+
 #define SDL_AUDIO_BUFFER_SIZE 1024
 #define MAX_AUDIO_FRAME_SIZE 192000
 
@@ -109,10 +111,13 @@ int main(int argc, char *argv[]) {
     // Set Audio setting from codec info
     SDL_AudioSpec wanted_spec;
     SDL_AudioSpec spec;
+    SDL_memset(&wanted_spec, 0, sizeof(wanted_spec));
+    
+    printf("sampling rate = %d\n", pAudioCodecCtx->sample_rate);
     wanted_spec.freq = pAudioCodecCtx->sample_rate;
-    wanted_spec.format = AUDIO_S16SYS; // singed 16bits, endian-order will depend on the system.
+    wanted_spec.format = AUDIO_F32; // singed 16bits, endian-order will depend on the system.
     wanted_spec.channels = pAudioCodecCtx->channels; // Number of audio channel
-    wanted_spec.silence = 0; // Silence ? Since audio is signed, 0 is of cource the usual value.
+    // wanted_spec.silence = 0; // Silence ? Since audio is signed, 0 is of cource the usual value.
     wanted_spec.samples = SDL_AUDIO_BUFFER_SIZE;
     wanted_spec.callback = audio_callback;
     wanted_spec.userdata = pAudioCodecCtx; // SDL pass this void pointer to callback
@@ -246,7 +251,7 @@ int main(int argc, char *argv[]) {
            SDL_Quit();
            exit(0);
            break;
-       }
+       }       
     }
 
     // Free th YUV frame
@@ -264,6 +269,9 @@ int main(int argc, char *argv[]) {
 
     // Close the video file
     avformat_close_input(&pFormatCtx);
+
+    // Close Audio
+    SDL_CloseAudio();
 
     return 0;
 } 

@@ -20,6 +20,7 @@ LDLIBS += $(shell sdl2-config --libs) $(LDLIBS)
 EXAMPLES= tutorial01 \
           tutorial02 \
           tutorial03 \
+          tutorial04 \
  
 OBJS=$(addsuffix .o,$(EXAMPLES))
 
