@@ -8,7 +8,7 @@ FFMPEG_LIBS=    libavdevice                        \
 
 CONFIG_DIR= /home/lee/ffmpeg_build/lib/pkgconfig
 
-CFLAGS := -Wall -O2 -g -ggdb
+CFLAGS := -Wall -Og -g -ggdb
 CFLAGS += $(shell export PKG_CONFIG_PATH=$(CONFIG_DIR); pkg-config --cflags $(FFMPEG_LIBS)) $(CFLAGS)
 CFLAGS += $(shell freetype-config --cflags) $(CFLAGS)
 CFLAGS += $(shell sdl2-config --cflags) $(CFLAGS)
@@ -21,12 +21,12 @@ EXAMPLES= tutorial01 \
           tutorial02 \
           tutorial03 \
           tutorial04 \
- 
+          tutorial05 \
+           
 OBJS=$(addsuffix .o,$(EXAMPLES))
-
-.phony: all clean
 
 all: $(OBJS) $(EXAMPLES)
 
-clean: rm $(EXAMPLES) $(OBJS)
+clean: 
+	$(RM) $(EXAMPLES) $(OBJS)
 
